@@ -264,7 +264,7 @@ function basicsSortCard(index){
 function basicsMilestone(kind){
  const final=kind==='sort'||basicsComplete();
  const title=final?'Basics cleared. Game on.':kind==='quiz'?'Module 01 cleared.':'Module 02 cleared.';
- const copy=final?'You have mastered all 20 checks. Your 15-minute daily game timer starts when you begin playing.':kind==='quiz'?'You know the core account and device habits. Next, protect the space around your desk.':'You can spot workplace risks. One final challenge: sort company information safely.';
+ const copy=final?(previewUnlocked()?'You have completed all 20 checks. The arcade is unlocked. Choose a mission and put your new skills into practice.':'You have mastered all 20 checks. Your 15-minute daily game timer starts when you begin playing.'):kind==='quiz'?'You know the core account and device habits. Next, protect the space around your desk.':'You can spot workplace risks. One final challenge: sort company information safely.';
  return `<div class="basics-milestone"><div class="basics-medal" aria-hidden="true">${final?'★':'✓'}</div><span class="basics-kicker">${final?'20 / 20 CHECKS COMPLETE':'CHECKPOINT CLEARED'}</span><h2>${title}</h2><p>${copy}</p><button type="button" class="basics-primary" data-basic="${final?'unlock':'continue'}">${final?'Enter PLAY Now':'Continue to next module'} <span aria-hidden="true">→</span></button></div>`
 }
 function basicsView(){
