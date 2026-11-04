@@ -542,7 +542,7 @@ const VST=SERVER?{keys:()=>api('/voice').then(m=>{VOICE.man=m;return Object.keys
  put:(k,b)=>fetch('/api/admin/voice/'+k,{method:'PUT',credentials:'same-origin',headers:{'Content-Type':(b.type||'audio/webm').split(';')[0],'X-Requested-With':'cq'},body:b}).then(r=>r.ok?VST.keys():r.json().then(d=>{throw new Error(d.error||'Upload failed')})),
  del:k=>api('/admin/voice/'+k,'DELETE').then(()=>VST.keys())}:VDB;
 const VOICE={base:'',man:{},cur:null,cancel:null,
- async src(key){if((SERVER||STATIC)&&this.man&&this.man[key])return '/audio/voice/'+key+'.'+this.man[key];if(SERVER)return null;try{const b=await VDB.get(key);if(b)return URL.createObjectURL(b)}catch(e){}return this.base?this.base+key+'.mp3':null},
+ async src(key){if((SERVER||STATIC)&&this.man&&this.man[key])return '/audio/voice/'+key+'.'+this.man[key]+(key==='c1-a'?'?v=d773252d7f':'');if(SERVER)return null;try{const b=await VDB.get(key);if(b)return URL.createObjectURL(b)}catch(e){}return this.base?this.base+key+'.mp3':null},
  play(src,end,fail){this.stop();let settled=false,timer;const finish=callback=>{if(settled)return;settled=true;clearTimeout(timer);if(this.cur){this.cur.onended=null;this.cur.onerror=null;try{this.cur.pause()}catch(e){}}this.cur=null;this.cancel=null;callback()};this.cancel=()=>{settled=true;clearTimeout(timer)};try{const a=new Audio(src);this.cur=a;a.onended=()=>finish(end);a.onerror=()=>finish(fail);timer=setTimeout(()=>finish(fail),45000);const p=a.play();if(p&&p.catch)p.catch(()=>finish(fail))}catch(e){finish(fail)}},
  stop(){if(this.cancel)this.cancel();this.cancel=null;if(this.cur){this.cur.onended=null;this.cur.onerror=null;try{this.cur.pause()}catch(e){}this.cur=null}}};
 /* ---------- game 4: voice trap (phone call simulation) ---------- */
@@ -550,7 +550,7 @@ const TACT={Urgency:'Pressure to act now so you skip the checks.',Authority:'Cla
 /* node: s = caller speech, [[phrase|Tactic]] marks a flaggable phrase; reply = [text, risk change, points, next node (W win, L breach, M missed genuine call), feedback] */
 const CALLS=[
 {name:'IT Helpdesk',num:'+91 11 4000 8812',note:'Not in your contacts',vish:1,voice:'hi-IN-MadhurNeural',rate:'+3%',pitch:'+0Hz',nodes:{
- a:{s:'Hello, main [[Rakesh bol raha hoon, IT helpdesk se|Authority]]. Aapke laptop par [[malware detect hua hai, company ka data leak ho raha hai|Fear]]. Isse [[abhi fix karna padega, warna aur systems mein phail jayega|Urgency]].',spoken:'हेलो, मैं राकेश बोल रहा हूँ, आई टी हेल्पडेस्क से। आपके लैपटॉप पर malware detect हुआ है, company का data leak हो रहा है। इसे अभी fix करना पड़ेगा, वरना और systems में फैल जाएगा।',o:[
+ a:{s:'Hello, main [[Rakesh bol raha hoon, IT se|Authority]]. Aapke laptop par [[malware detect hua hai, company ka data leak ho raha hai|Fear]]. Isse [[abhi fix karna padega, warna aur systems mein phail jayega|Urgency]].',spoken:'हेलो, मैं राकेश बोल रहा हूँ, आई टी से। आपके लैपटॉप पर malware detect हुआ है, company का data leak हो रहा है। इसे अभी fix करना पड़ेगा, वरना और systems में फैल जाएगा।',o:[
   ['“Oh no! What do you need me to do?”',25,-10,'b','You started following instructions before checking who this is.'],
   ['“Please give me your name and ticket number. I will call the helpdesk back on the official number.”',-25,30,'c','Verifying through a second, official channel is exactly right.'],
   ['“Sure, go ahead. I am at my desk.”',20,-10,'b','You went along without verifying the caller.']]},
