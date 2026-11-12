@@ -18,6 +18,9 @@ Vercel guide: https://vercel.com/docs/builds/configure-a-build
 - After player sign-in, the required basics briefing comes first: 8 quiz questions, 6 matching activities, and 6 file-sorting checks. Games unlock after all 20 checks are completed. Progress survives page refreshes; a fresh sign-in starts the briefing again.
 - Firewall Blaster is available without first completing Data Sorter.
 - Unbuilt modules remain Coming soon. Individual game rounds retain their normal rules.
+
+done
+
 - Sign-in is a local player profile, not verified company authentication.
 - Progress is saved only in this browser. Standings and rewards are demonstration features.
 - Admin demo mode is disabled. Backend, local admin server and timer-reset helper pages are excluded.
