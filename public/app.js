@@ -33,10 +33,10 @@ document.addEventListener('click',e=>{if(e.target.closest('button,[role=button],
 const ADMIN=()=>{if(SERVER)return!!S.admin;if(STATIC&&!window.CQ_DEMO)return false;try{return /[?&]admin(=|&|$)/.test(location.search)||localStorage.getItem('cq-admin')=='1'}catch(e){return false}};
 /* ---------- persistence (progress is saved on this device until the backend exists) ---------- */
 const KEY='cyberquest.v1';
-const BASICS_VERSION=1;
-const BASICS_LIMITS={quiz:8,match:6,sort:6};
+const BASICS_VERSION=3;
+const BASICS_LIMITS={quiz:4,sort:3};
 function cleanBasics(value){
- const result={version:BASICS_VERSION,quiz:[],match:[],sort:[]};
+ const result={version:BASICS_VERSION,quiz:[],sort:[]};
  if(!value||value.version!==BASICS_VERSION)return result;
  for(const kind of Object.keys(BASICS_LIMITS)){
   if(!Array.isArray(value[kind]))continue;
@@ -44,7 +44,7 @@ function cleanBasics(value){
  }
  return result
 }
-const basicsUserKey=id=>'cyberquest.basics.v1.'+String(id);
+const basicsUserKey=id=>'cyberquest.basics.v3.'+String(id);
 const savedLevelCount=()=>typeof LV==='undefined'?5:LV.length;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(SERVER?{fx:SFX.s}:{missionOrder:5,name:S.name,best:S.best,done:S.done,claimed:S.claimed,cases:S.cases,photo:S.photo,basics:cleanBasics(S.basics),fx:SFX.s}));if(SERVER&&S.user&&S.user.id){localStorage.setItem('cyberquest.profile.'+S.user.id,S.photo||'');localStorage.setItem(basicsUserKey(S.user.id),JSON.stringify(cleanBasics(S.basics)))}return true}catch(e){return false}}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d)return;S.name=String(d.name||'').slice(0,40);S.photo=profilePhotoValid(d.photo)?d.photo:'';
@@ -58,7 +58,7 @@ function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d)
 /* Backend adapter (phase 2): replace save()/load() and these stubs with real calls
    POST /api/progress, GET /api/leaderboard?day=today, POST /api/rewards/claim. Scores must be validated server-side. */
 
-const S={name:'',photo:'',best:{},base:0,cases:{},claimed:{},basics:{version:1,quiz:[],match:[],sort:[]},score:0,done:[],view:'games',sel:1,cur:1,lp:0,combo:0,menuOpen:false,lastResult:null,assign:{1:'sorter',2:'phish',3:'shoot',4:'desk',5:'voice'}};
+const S={name:'',photo:'',best:{},base:0,cases:{},claimed:{},basics:{version:3,quiz:[],sort:[]},score:0,done:[],view:'games',sel:1,cur:1,lp:0,combo:0,menuOpen:false,lastResult:null,assign:{1:'sorter',2:'phish',3:'shoot',4:'desk',5:'voice'}};
 const EXTRA_LEVELS=[];
 const ATTACK_BRIEFS=[
  {kind:'EMAIL / FAKE LOGIN',icon:'✉',title:'The stolen sign-in',lesson:'Phishing copies a familiar email or login screen to steal your password. The sender and the final website address matter more than the logo.',message:'IT Helpdesk: “Your mailbox closes in 30 minutes. Sign in at innovatiview-login.co to keep access.”',question:'What is your move?',choices:['Open the link and sign in before the deadline','Open the company portal yourself and report the email','Reply and ask the sender if it is real'],correct:1,clue:'The look-alike domain and 30-minute threat are the trap. Visit the real portal directly.'},

@@ -15,7 +15,7 @@ Vercel guide: https://vercel.com/docs/builds/configure-a-build
 
 - All implemented levels and mini-games are available on any hostname, including Vercel.
 - The daily timer is paused; the header identifies this as an all-levels-open preview.
-- After player sign-in, the required basics briefing comes first: 8 quiz questions, 6 matching activities, and 6 file-sorting checks. Games unlock after all 20 checks are completed. Progress survives page refreshes; a fresh sign-in starts the briefing again.
+- After player sign-in, the required basics briefing comes first: 4 quiz questions and 3 file-sorting checks. Games unlock after all 7 checks are completed. Progress survives page refreshes; a fresh sign-in starts the briefing again.
 - Firewall Blaster is available without first completing Data Sorter.
 - Unbuilt modules remain Coming soon. Individual game rounds retain their normal rules.
 - Sign-in is a local player profile, not verified company authentication.
